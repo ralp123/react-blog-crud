@@ -74,8 +74,6 @@ class Home extends Component {
 		this.setState({
 			commentField: event.target.value,
 		});
-
-		//console.log(event.target.value);
 	}
 
 	postD = () =>{    
