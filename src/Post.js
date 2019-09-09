@@ -31,7 +31,6 @@ class Post extends Component {
 			isLoadingLike: false,
 			showMoreBtn: 3,
 
-			imgLightBox: '',
 			isOpen: false
 		}
 		
