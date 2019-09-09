@@ -233,7 +233,7 @@ class Home extends Component {
 		}else{
 			tableDetail = Object.keys(postDetails).map((i) => (
 				<div className="post-padding-bottom-25 post-list" key={i}>
-					<a href="#"><img className="img-fluid" src={require(''+postDetails[i].img_path+'')} onClick={() => this.setState({ isOpen: true, imgLightBox: postDetails[i].img_path })} /></a>
+					<Link to="#"><img className="img-fluid" src={require(''+postDetails[i].img_path+'')} onClick={() => this.setState({ isOpen: true, imgLightBox: postDetails[i].img_path })} /></Link>
 					<Link className="no-underline" to={'/post/'+postDetails[i].id}><h2>{ postDetails[i].title }</h2></Link>
 					<Link className="no-underline" to="#"><h5>{ postDetails[i].author }, { postDetails[i].date }</h5></Link>
 					<br />
@@ -252,7 +252,7 @@ class Home extends Component {
 					</div>
 
 					{isComment ? (
-						<div class="mb-5">
+						<div className="mb-5">
 							<form action="GET" >
 								<textarea ref={`comment-${postDetails[i].id}`} className="form-control hidden" name="content_value" value={this.state.commentField} onChange={this.textComment}  />
 								<button type="submit" ref={`btn-comment-${postDetails[i].id}`} className="btn btn-primary float-right hidden" onClick={(e) => this.submitComment(e)}>
@@ -268,10 +268,10 @@ class Home extends Component {
 						(postDetails[i].comment.length <= 3) ? (	
 							<>
 							{postDetails[i].comment.map((comments,key) => (
-								<div class="card bg-info mb-1" key={key}>
-									<div class="card-body p-2">
+								<div className="card bg-info mb-1" key={key}>
+									<div className="card-body p-2">
 									<strong>User 1</strong> <br/>
-										<p class="card-text">{comments}</p>
+										<p className="card-text">{comments}</p>
 									</div>
 							   	</div>
 							))}
@@ -279,14 +279,14 @@ class Home extends Component {
 						) : ( 
 							<>
 							{postDetails[i].comment.slice(0,3).map((comments,key) => (
-								<div class="card bg-info mb-1" key={key}>
-									<div class="card-body p-2">
+								<div className="card bg-info mb-1" key={key}>
+									<div className="card-body p-2">
 									<strong>User 1</strong> <br/>
-										<p class="card-text">{comments}</p>
+										<p className="card-text">{comments}</p>
 									</div>
 							   	</div>	
 							))}
-							<Link className="no-underline" to={'/post/'+postDetails[i].id}><button class="btn btn-sm btn-primary">More</button></Link>
+							<Link className="no-underline" to={'/post/'+postDetails[i].id}><button className="btn btn-sm btn-primary">More</button></Link>
 							</>
 						)
 					) : 
@@ -305,7 +305,7 @@ class Home extends Component {
 
 	render() {
 		const tableDetail = this.tableDetail();
-		const { isOpen }  = this.state.isOpen;
+		const { isOpen }  = this.state;
 
 		return (
             <>
@@ -321,12 +321,11 @@ class Home extends Component {
 						</div>
 						<div>
 							<img src={require('./images/spices1200x800-3.jpg')} />
-							
 						</div>
 					</Carousel>
 				</div>
 				
-				<div class="container">
+				<div className="container">
 					<br />
 					<>
 						<h2 className="text-center">Latest Post</h2>
