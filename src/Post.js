@@ -75,6 +75,7 @@ class Post extends Component {
                 <img src={require(''+postDetails.img_path+'')} />
 				<p><b>{ postDetails.author }, { postDetails.date }</b></p>
                 <p>{ postDetails.content }</p>
+				<button>Like</button>
                 </>
 		}
 		
