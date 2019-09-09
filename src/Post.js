@@ -29,7 +29,10 @@ class Post extends Component {
 			isComment: false,
 			afterCommentSpinner: '',
 			isLoadingLike: false,
-			showMoreBtn: 3
+			showMoreBtn: 3,
+
+			imgLightBox: '',
+			isOpen: false
 		}
 		
 		this.textComment = this.textComment.bind(this);
@@ -155,12 +158,12 @@ class Post extends Component {
 		let tableDetail;
 
 		if(isLoading === true){
-			tableDetail = <div class="spinner-border"></div>;
+			tableDetail = <div className="spinner-border"></div>;
 		}else{
             tableDetail = 
                 <>
 					<Link className="no-underline" to={'/post/'+postDetails.id}><h2>{ postDetails.title }</h2></Link>
-					<img src={require(''+postDetails.img_path+'')} />
+					<Link to="#"><img src={require(''+postDetails.img_path+'')} onClick={() => this.setState({ isOpen: true, imgLightBox: postDetails.img_path })} /></Link>
 					<p><b>{ postDetails.author }, { postDetails.date }</b></p>
 					<p>{ postDetails.content }</p>
 					<span>{postDetails.like} <FaThumbsUp /></span>
@@ -178,7 +181,7 @@ class Post extends Component {
 					</div>
 
 					{isComment ? (
-						<div class="mb-5">
+						<div className="mb-5">
 							<form action="GET" >
 								<textarea className="form-control" name="content_value" value={this.state.commentField} onChange={this.textComment}  />
 								<button type="submit" className="btn btn-primary mt-2 float-right" onClick={(e) => this.onSubmitComment(e, postDetails.id)}>
@@ -194,10 +197,10 @@ class Post extends Component {
 						(postDetails.comment.length <= 3) ? (	
 							<>
 							{postDetails.comment.map((comments,key) => (
-								<div class="card bg-info mb-1" key={key}>
-									<div class="card-body p-2">
+								<div className="card bg-info mb-1" key={key}>
+									<div className="card-body p-2">
 									<strong>User 1</strong> <br/>
-										<p class="card-text">{comments}</p>
+										<p className="card-text">{comments}</p>
 									</div>
 							   	</div>
 							))}
@@ -205,15 +208,15 @@ class Post extends Component {
 						) : ( 
 							<>
 							{postDetails.comment.slice(0,showMoreBtn).map((comments,key) => (
-								<div class="card bg-info mb-1" key={key}>
-									<div class="card-body p-2">
+								<div className="card bg-info mb-1" key={key}>
+									<div className="card-body p-2">
 									<strong>User 1</strong> <br/>
-										<p class="card-text">{comments}</p>
+										<p className="card-text">{comments}</p>
 									</div>
 							   	</div>	
 							))}
 
-							<button class="btn btn-sm btn-primary" onClick={() => this.showMoreBtn()}>More</button>
+							<button className="btn btn-sm btn-primary" onClick={() => this.showMoreBtn()}>More</button>
 							</>
 						)
 					) : 
@@ -231,11 +234,19 @@ class Post extends Component {
 
 	render() {
 		let postDetail = this.postDetail();
+		const {isOpen} = this.state;
 
 		return (
             <>
 				<div className="container-fluid">
-                    {postDetail}
+					{postDetail}
+					
+					{isOpen && (
+						<Lightbox
+							mainSrc={require(''+this.state.imgLightBox+'')}
+							onCloseRequest={() => this.setState({ isOpen: false })}
+						/>
+					)}
                 </div>
             </>			
 		);
