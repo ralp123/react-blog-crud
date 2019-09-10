@@ -231,7 +231,7 @@ class Home extends Component {
 		if(isLoading === true){
 			tableDetail = <div className="spinner-border"></div>;
 		}else{
-			tableDetail = Object.keys(postDetails).map((i) => (
+			tableDetail = Object.keys(postDetails).map((i, value) => (
 				<div className="post-padding-bottom-25 post-list" key={i}>
 					<Link to="#"><img className="img-fluid" src={require(''+postDetails[i].img_path+'')} onClick={() => this.setState({ isOpen: true, imgLightBox: postDetails[i].img_path })} /></Link>
 					<Link className="no-underline" to={'/post/'+postDetails[i].id}><h2>{ postDetails[i].title }</h2></Link>
